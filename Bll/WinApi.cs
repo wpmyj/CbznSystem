@@ -24,5 +24,262 @@ namespace Bll
         /// <returns></returns>
         [DllImport("user32 ")]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        /// <summary>
+        /// 模拟鼠标操作
+        /// </summary>
+        /// <param name="dwFlags">鼠标操作的标志之一或它们的组合</param>
+        /// <param name="dx">根据MOUSEEVENTF_ABSOLUTE标志,指定x,y方向的绝对位置或相对位置</param>
+        /// <param name="dy"></param>
+        /// <param name="cButtons">没有使用</param>
+        /// <param name="dwExtraInfo">没有使用</param>
+        /// <returns></returns>
+        [DllImport("user32")]
+        public static extern int mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+
+        public const int MOUSEEVENTF_MOVE = 0x0001;//移动鼠标
+        public const int MOUSEEVENTF_LEFTDOWN = 0x0002;//模拟鼠标左键按下
+        public const int MOUSEEVENTF_LEFTUP = 0x0004;//模拟鼠标左键抬起
+        public const int MOUSEEVENTF_RIGHTDOWN = 0x0008;//模拟鼠标右键按下
+        public const int MOUSEEVENTF_RIGHTUP = 0x0010;//模拟鼠标右键抬起
+        public const int MOUSEEVENTF_MIDDLEDOWN = 0x0020;//模拟鼠标中键按下
+        public const int MOUSEEVENTF_MIDDLEFUP = 0x0040;//模拟鼠标中键抬起
+        public const int MOUSEEVNETF_ABSOLUTE = 0x8000;//标示是否采用绝对坐标
+
+        #region 键盘钩子
+
+        public const int WM_KEYDOWN = 0x100;
+        public const int WM_KEYUP = 0x101;
+        public const int WM_SYSKEYDOWN = 0x104;
+        public const int WM_SYSKEYUP = 0x105;
+        public const int WH_KEYBOARD_LL = 13;
+        public const int WH_KEYBOARD = 2;
+
+        [StructLayout(LayoutKind.Sequential)] //声明键盘钩子的封送结构类型 
+        public class KeyboardHookStruct
+        {
+            public int vkCode; //表示一个在1到254间的虚似键盘码 
+            public int scanCode; //表示硬件扫描码 
+            public int flags; //键按下：128 抬起：0
+            public int time; //消息时间戳间
+            public int dwExtraInfo; //额外信息
+        }
+
+        public delegate int HookProc(int nCode, Int32 wParam, IntPtr lParam);
+
+
+        //安装钩子的函数 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+        //卸下钩子的函数 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(IntPtr idHook);
+        //下一个钩挂的函数 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int CallNextHookEx(IntPtr idHook, int nCode, Int32 wParam, IntPtr lParam);
+        [DllImport("user32")]
+        public static extern int ToAscii(int uVirtKey, int uScanCode, byte[] lpbKeyState, byte[] lpwTransKey, int fuState);
+        [DllImport("user32")]
+        public static extern int GetKeyboardState(byte[] pbKeyState);
+        [DllImport("user32")]
+        public static extern IntPtr GetModuleHandle(string lpModuleName);
+        // 取得当前线程编号
+        [DllImport("kernel32.dll")]
+        public static extern int GetCurrentThreadId();
+
+        #endregion 键盘钩子
+
+        #region Pcomm
+
+        #region 波特率
+        public const int B50 = 0x00;
+        public const int B75 = 0x01;
+        public const int B110 = 0x02;
+        public const int B134 = 0x03;
+        public const int B150 = 0x04;
+        public const int B300 = 0x05;
+        public const int B600 = 0x06;
+        public const int B1200 = 0x07;
+        public const int B1800 = 0x08;
+        public const int B2400 = 0x09;
+        public const int B4800 = 0x0A;
+        public const int B7200 = 0x0B;
+        public const int B9600 = 0x0C;
+        public const int B19200 = 0x0D;
+        public const int B38400 = 0x0E;
+        public const int B57600 = 0x0F;
+        public const int B115200 = 0x10;
+        public const int B230400 = 0x11;
+        public const int B460800 = 0x12;
+        public const int B921600 = 0x13;
+        #endregion
+
+
+        #region 停止位
+        public const int STOP_1 = 0x00;
+        public const int STOP_2 = 0x04;
+        #endregion
+
+
+        #region 数据位
+        public const int BIT_5 = 0x00;
+        public const int BIT_6 = 0x01;
+        public const int BIT_7 = 0x02;
+        public const int BIT_8 = 0x03;
+        #endregion
+
+
+
+        #region 检验位
+        public const int p_NONE = 0x00;
+        public const int p_ODD = 0x08;
+        public const int p_SPC = 0x38;
+        public const int p_MRK = 0x28;
+        public const int p_EVEN = 0x18;
+        #endregion
+
+
+        /// <summary>
+        /// 错误枚举
+        /// </summary>
+        public enum ErrorCode
+        {
+            /// <summary>
+            /// 正确
+            /// </summary>
+            SIO_OK = 0,
+            /// <summary>
+            /// 没有此端口或端口未打开
+            /// </summary>
+            SIO_BADPORT = -1,
+            /// <summary>
+            /// 无法控制此板
+            /// </summary>
+            SIO_OUTCONTROL = -2,
+            /// <summary>
+            /// 没有数据代读取或没有缓冲区供写
+            /// </summary>
+            SIO_NODATA = -4,
+            /// <summary>
+            /// 没有此端口或端口已打开
+            /// </summary>
+            SIO_OPENFAIL = -5,
+            /// <summary>
+            /// 因为H/W流量控制而不能设置
+            /// </summary>
+            SIO_RTS_BY_HW = -6,
+            /// <summary>
+            /// 无效参数
+            /// </summary>
+            SIO_BADPARM = -7,
+            /// <summary>
+            /// 调用win32函数失败请调用GetLastError函数以获取错误代码
+            /// </summary>
+            SIO_WIN32FAIL = -8,
+            /// <summary>
+            /// 此版本不支持这个函数
+            /// </summary>
+            SIO_BOARDNOTSUPPORT = -9,
+            /// <summary>
+            /// PCOMM函数运行结果失败
+            /// </summary>
+            SIO_FAIL = -10,
+            /// <summary>
+            /// 写入已被锁定，用户已放弃写入
+            /// </summary>
+            SIO_ABORT_WRITE = -11,
+            /// <summary>
+            /// 已发生写入超时
+            /// </summary>
+            SIO_WRITETIMEOUT = -12,
+        }
+
+
+        /// <summary>
+        /// 打开端口
+        /// </summary>
+        /// <param name="port">端口的编号（1 2 3）</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_open(int port);
+
+        /// <summary>
+        /// 设置 波特率 数据位 停止位 模式
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <param name="baudrate">波特率</param>
+        /// <param name="mode">数据位 停止位 模式</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_ioctl(int port, int baudrate, int mode);
+        /// <summary>
+        /// 关闭端口
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_close(int port);
+        /// <summary>
+        /// 读取缓冲区的数据
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <param name="data">数据集</param>
+        /// <param name="len">数据集长度</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_read(int port, byte[] data, int len);
+        /// <summary>
+        /// 清除缓冲区的数据
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <param name="index">2 清除读写缓冲区的数据</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_flush(int port, int index);
+        /// <summary>
+        /// 向缓冲区写入数据
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <param name="by">数据集</param>
+        /// <param name="len">数据集长度</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_write(int port, byte[] by, int len);
+        /// <summary>
+        /// 获取缓冲区的数据长度
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_iqueue(int port);
+
+        /// <summary>
+        /// 设置串口写操作的超时
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <param name="totalTimeouts">超时时间</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_SetWriteTimeouts(int port, int totalTimeouts);
+
+        /// <summary>
+        /// 当端口接收到一个字体的数据时的回调方法
+        /// </summary>
+        /// <param name="port">端口的编号</param>
+        /// <param name="function">回调方法</param>
+        /// <param name="count">1</param>
+        /// <returns></returns>
+        [DllImport("pcomm.dll")]
+        public static extern int sio_cnt_irq(int port, DataReceivedEventHandler function, int count);
+
+        /// <summary>
+        /// 回调函数
+        /// </summary>
+        /// <param name="port"></param>
+        public delegate void DataReceivedEventHandler(int port);
+
+        #endregion Pcomm
+
     }
 }

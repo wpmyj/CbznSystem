@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,25 +32,310 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Exit_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Exit_Form.Designer.cs">
+      <DependentUpon>Exit_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="PortConnectionMessage_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="PortConnectionMessage_Form.Designer.cs">
+      <DependentUpon>PortConnectionMessage_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab4Form\AddCamera_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab4Form\AddCamera_Form.designer.cs">
+      <DependentUpon>AddCamera_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab4Form\EditCamera_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab4Form\EditCamera_Form.designer.cs">
+      <DependentUpon>EditCamera_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\RemoteConnectionSettings_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\RemoteConnectionSettings_Form.Designer.cs">
+      <DependentUpon>RemoteConnectionSettings_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\SearchWirelessFrequency_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\SearchWirelessFrequency_Form.Designer.cs">
+      <DependentUpon>SearchWirelessFrequency_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\BindingViceCard_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\BindingViceCard_Form.Designer.cs">
+      <DependentUpon>BindingViceCard_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceCardDeferredUpdate_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceCardDeferredUpdate_Form.Designer.cs">
+      <DependentUpon>DistanceCardDeferredUpdate_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceLock\DistanceLock_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceLock\DistanceLock_Form.Designer.cs">
+      <DependentUpon>DistanceLock_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceLock\DistanceUnlock_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceLock\DistanceUnlock_Form.Designer.cs">
+      <DependentUpon>DistanceUnlock_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\DelayParam_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\DelayParam_Form.Designer.cs">
+      <DependentUpon>DelayParam_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceDelay_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceDelay_Form.Designer.cs">
+      <DependentUpon>DistanceDelay_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceCardIssue_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\DistanceCardIssue_Form.Designer.cs">
+      <DependentUpon>DistanceCardIssue_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\InputPlate_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\InputPlate_Form.designer.cs">
+      <DependentUpon>InputPlate_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\InformationInput\AddInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\InformationInput\AddInfo_Form.Designer.cs">
+      <DependentUpon>AddInfo_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\InformationInput\InformationInput_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\InformationInput\InformationInput_Form.Designer.cs">
+      <DependentUpon>InformationInput_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab3Form\InformationInput\EditInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab3Form\InformationInput\EditInfo_Form.Designer.cs">
+      <DependentUpon>EditInfo_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab6Form\ExportChargeRecord_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab6Form\ExportChargeRecord_Form.Designer.cs">
+      <DependentUpon>ExportChargeRecord_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab6Form\InputChargeRecord_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab6Form\InputChargeRecord_Form.Designer.cs">
+      <DependentUpon>InputChargeRecord_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab6Form\InputEnterExitRecord_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab6Form\InputEnterExitRecord_Form.Designer.cs">
+      <DependentUpon>InputEnterExitRecord_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\ChangePassword_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\ChangePassword_Form.Designer.cs">
+      <DependentUpon>ChangePassword_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\JurisdictionSettings_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\JurisdictionSettings_Form.Designer.cs">
+      <DependentUpon>JurisdictionSettings_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\EditManager_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\EditManager_Form.Designer.cs">
+      <DependentUpon>EditManager_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\AddManager_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings\AddManager_Form.Designer.cs">
+      <DependentUpon>AddManager_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab2Form\EditDeviceInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab2Form\EditDeviceInfo_Form.Designer.cs">
+      <DependentUpon>EditDeviceInfo_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab2Form\AddDeviceInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab2Form\AddDeviceInfo_Form.Designer.cs">
+      <DependentUpon>AddDeviceInfo_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab2Form\ConfirmDistanceOldPassword_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab2Form\ConfirmDistanceOldPassword_Form.Designer.cs">
+      <DependentUpon>ConfirmDistanceOldPassword_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab2Form\ControlBoardPassword_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab2Form\ControlBoardPassword_Form.Designer.cs">
+      <DependentUpon>ControlBoardPassword_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login_Form.Designer.cs">
+      <DependentUpon>Login_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab2Form\ExportDeviceInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab2Form\ExportDeviceInfo_Form.Designer.cs">
+      <DependentUpon>ExportDeviceInfo_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab6Form\ManageLog_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab6Form\ManageLog_Form.Designer.cs">
+      <DependentUpon>ManageLog_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab6Form\ChargeRecord_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab6Form\ChargeRecord_Form.Designer.cs">
+      <DependentUpon>ChargeRecord_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab6Form\EnterExitRecord_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab6Form\EnterExitRecord_Form.Designer.cs">
+      <DependentUpon>EnterExitRecord_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\AboutUs_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\AboutUs_Form.Designer.cs">
+      <DependentUpon>AboutUs_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\ChargeStandard_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\ChargeStandard_Form.Designer.cs">
+      <DependentUpon>ChargeStandard_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\DataManagement_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\DataManagement_Form.Designer.cs">
+      <DependentUpon>DataManagement_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\ManagerSettings_Form.Designer.cs">
+      <DependentUpon>ManagerSettings_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab5Form\PlatformSetting_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab5Form\PlatformSetting_Form.Designer.cs">
+      <DependentUpon>PlatformSetting_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab1Form\IcForm\IcEquipment_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab1Form\IcForm\IcEquipment_Form.Designer.cs">
+      <DependentUpon>IcEquipment_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab1Form\IcForm\IcCard_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab1Form\IcForm\IcCard_Form.Designer.cs">
+      <DependentUpon>IcCard_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab1Form\DistanceForm\DistanceCard_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab1Form\DistanceForm\DistanceCard_Form.Designer.cs">
+      <DependentUpon>DistanceCard_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab1Form\DistanceForm\DistanceEquipment_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab1Form\DistanceForm\DistanceEquipment_Form.Designer.cs">
+      <DependentUpon>DistanceEquipment_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tab2Form\InputDeviceInfo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tab2Form\InputDeviceInfo_Form.Designer.cs">
+      <DependentUpon>InputDeviceInfo_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForm\Tab6_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForm\Tab6_Form.Designer.cs">
+      <DependentUpon>Tab6_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForm\Tab5_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForm\Tab5_Form.Designer.cs">
+      <DependentUpon>Tab5_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForm\Tab4_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForm\Tab4_Form.Designer.cs">
+      <DependentUpon>Tab4_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForm\Tab3_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForm\Tab3_Form.Designer.cs">
+      <DependentUpon>Tab3_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForm\Tab1_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForm\Tab1_Form.Designer.cs">
+      <DependentUpon>Tab1_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForm\Tab2_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForm\Tab2_Form.Designer.cs">
+      <DependentUpon>Tab2_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Main_Form.cs">
       <SubType>Form</SubType>
@@ -60,11 +345,143 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Exit_Form.resx">
+      <DependentUpon>Exit_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="PortConnectionMessage_Form.resx">
+      <DependentUpon>PortConnectionMessage_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab4Form\AddCamera_Form.resx">
+      <DependentUpon>AddCamera_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab4Form\EditCamera_Form.resx">
+      <DependentUpon>EditCamera_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\RemoteConnectionSettings_Form.resx">
+      <DependentUpon>RemoteConnectionSettings_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\SearchWirelessFrequency_Form.resx">
+      <DependentUpon>SearchWirelessFrequency_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\BindingViceCard_Form.resx">
+      <DependentUpon>BindingViceCard_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\DistanceCardDeferredUpdate_Form.resx">
+      <DependentUpon>DistanceCardDeferredUpdate_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\DistanceLock\DistanceLock_Form.resx">
+      <DependentUpon>DistanceLock_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\DistanceLock\DistanceUnlock_Form.resx">
+      <DependentUpon>DistanceUnlock_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\DelayParam_Form.resx">
+      <DependentUpon>DelayParam_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\DistanceDelay_Form.resx">
+      <DependentUpon>DistanceDelay_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\DistanceCardIssue_Form.resx">
+      <DependentUpon>DistanceCardIssue_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\InputPlate_Form.resx">
+      <DependentUpon>InputPlate_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\InformationInput\AddInfo_Form.resx">
+      <DependentUpon>AddInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\InformationInput\InformationInput_Form.resx">
+      <DependentUpon>InformationInput_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab3Form\InformationInput\EditInfo_Form.resx">
+      <DependentUpon>EditInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab6Form\ExportChargeRecord_Form.resx">
+      <DependentUpon>ExportChargeRecord_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab6Form\InputChargeRecord_Form.resx">
+      <DependentUpon>InputChargeRecord_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab6Form\InputEnterExitRecord_Form.resx">
+      <DependentUpon>InputEnterExitRecord_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\ManagerSettings\ChangePassword_Form.resx">
+      <DependentUpon>ChangePassword_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\ManagerSettings\JurisdictionSettings_Form.resx">
+      <DependentUpon>JurisdictionSettings_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\ManagerSettings\EditManager_Form.resx">
+      <DependentUpon>EditManager_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\ManagerSettings\AddManager_Form.resx">
+      <DependentUpon>AddManager_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab2Form\EditDeviceInfo_Form.resx">
+      <DependentUpon>EditDeviceInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab2Form\AddDeviceInfo_Form.resx">
+      <DependentUpon>AddDeviceInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab2Form\ConfirmDistanceOldPassword_Form.resx">
+      <DependentUpon>ConfirmDistanceOldPassword_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab2Form\ControlBoardPassword_Form.resx">
+      <DependentUpon>ControlBoardPassword_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login_Form.resx">
+      <DependentUpon>Login_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab2Form\ExportDeviceInfo_Form.resx">
+      <DependentUpon>ExportDeviceInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab6Form\ChargeRecord_Form.resx">
+      <DependentUpon>ChargeRecord_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab6Form\EnterExitRecord_Form.resx">
+      <DependentUpon>EnterExitRecord_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\AboutUs_Form.resx">
+      <DependentUpon>AboutUs_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\ChargeStandard_Form.resx">
+      <DependentUpon>ChargeStandard_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\DataManagement_Form.resx">
+      <DependentUpon>DataManagement_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\ManagerSettings_Form.resx">
+      <DependentUpon>ManagerSettings_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab5Form\PlatformSetting_Form.resx">
+      <DependentUpon>PlatformSetting_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab1Form\DistanceForm\DistanceCard_Form.resx">
+      <DependentUpon>DistanceCard_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab1Form\DistanceForm\DistanceEquipment_Form.resx">
+      <DependentUpon>DistanceEquipment_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab1Form\IcForm\IcCard_Form.resx">
+      <DependentUpon>IcCard_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab1Form\IcForm\IcEquipment_Form.resx">
+      <DependentUpon>IcEquipment_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab2Form\InputDeviceInfo_Form.resx">
+      <DependentUpon>InputDeviceInfo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tab6Form\ManageLog_Form.resx">
+      <DependentUpon>ManageLog_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForm\Tab6_Form.resx">
+      <DependentUpon>Tab6_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForm\Tab1_Form.resx">
+      <DependentUpon>Tab1_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForm\Tab2_Form.resx">
+      <DependentUpon>Tab2_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main_Form.resx">
       <DependentUpon>Main_Form.cs</DependentUpon>
@@ -79,6 +496,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TabForm\Tab3_Form.resx">
+      <DependentUpon>Tab3_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForm\Tab4_Form.resx">
+      <DependentUpon>Tab4_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForm\Tab5_Form.resx">
+      <DependentUpon>Tab5_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,6 +521,18 @@
       <Project>{88D7F1DB-708C-47B3-B0E5-F25B226FE068}</Project>
       <Name>Bll</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dal\Dal.csproj">
+      <Project>{5aa0b790-316b-4d8b-bcbb-f20a48c951fd}</Project>
+      <Name>Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Db_Rom\Db_Rom.csproj">
+      <Project>{ed0d5351-bc17-47fa-8a3e-b7167aae9299}</Project>
+      <Name>Db_Rom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{243c410f-7cc5-41b0-8618-4dde71133d9d}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NewControl\NewControl.csproj">
       <Project>{a4731931-4e26-4e44-b147-76c0cb5d8802}</Project>
       <Name>NewControl</Name>
@@ -107,6 +546,63 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phonewww.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\publicnumber.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dropdown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Novideos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlateInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process8.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

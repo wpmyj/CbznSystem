@@ -20,6 +20,15 @@ namespace NewControl
         [DllImport("user32.dll")]
         public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
 
+        protected delegate void SettingsClickEventHandler(object sender, EventArgs e);
+
+        protected event SettingsClickEventHandler SettingsClick;
+
+        private void OnSettingsClick(object sender, EventArgs e)
+        {
+            SettingsClick?.Invoke(sender, e);
+        }
+
         public NewForm()
         {
             InitializeComponent();
@@ -34,10 +43,36 @@ namespace NewControl
 
             btn_Min.Click += Btn_Min_Click;
             btn_Close.Click += Btn_Close_Click;
+            btn_Settings.Click += Btn_Settings_Click;
 
             p_Title.Paint += P_Title_Paint;
             p_Title.Resize += P_Title_Resize;
             p_Title.MouseDown += P_Title_MouseDown;
+        }
+
+        private void Btn_Settings_Click(object sender, EventArgs e)
+        {
+            OnSettingsClick(sender, e);
+        }
+
+        private bool _SettingsBox;
+        [Browsable(true), Description("确认窗体标题栏右上角是否有设置按钮框"), DefaultValue(false)]
+        public bool SettingsBox
+        {
+            get { return _SettingsBox; }
+            set
+            {
+                _SettingsBox = value;
+                btn_Settings.Visible = _SettingsBox;
+            }
+        }
+
+        private bool _WindowMove = true;
+        [Browsable(true), Description("是否可能拖动窗体移动"), DefaultValue(true)]
+        public bool WindowMove
+        {
+            get { return _WindowMove; }
+            set { _WindowMove = value; }
         }
 
         private void NewForm_TextChanged(object sender, EventArgs e)
@@ -47,8 +82,11 @@ namespace NewControl
 
         private void P_Title_MouseDown(object sender, MouseEventArgs e)
         {
-            ReleaseCapture();
-            SendMessage(Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+            if (WindowMove)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+            }
         }
 
         private void P_Title_Resize(object sender, EventArgs e)
@@ -93,11 +131,13 @@ namespace NewControl
             if (this.ControlBox)
             {
                 btn_Min.Visible = this.MinimizeBox;
+                btn_Settings.Visible = SettingsBox;
             }
             else
             {
                 btn_Close.Visible = false;
                 btn_Min.Visible = false;
+                btn_Settings.Visible = false;
             }
         }
     }

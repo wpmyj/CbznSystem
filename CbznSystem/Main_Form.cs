@@ -1,14 +1,11 @@
-﻿using System.Drawing.Drawing2D;
+﻿using Bll;
+using Dal;
+using Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using NewControl;
-using Bll;
 using System.Diagnostics;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace CbznSystem
 {
@@ -29,6 +26,8 @@ namespace CbznSystem
         private bool _isMouseEnterTab5;
         private bool _isMouseDownTab5;
 
+        private bool _isMouseEnterTab6;
+        private bool _isMouseDownTab6;
 
         public Main_Form()
         {
@@ -39,8 +38,14 @@ namespace CbznSystem
             Screen currentscreen = Screen.FromControl(this);
             this.Location = new Point(currentscreen.Bounds.Left, currentscreen.Bounds.Top);
             this.Size = new Size(currentscreen.WorkingArea.Width, currentscreen.WorkingArea.Height);
+            //this.Size = new Size(1280, 768);
+            //this.StartPosition = FormStartPosition.CenterScreen;
+
             this.Paint += Main_Form_Paint;
             this.Load += Main_Form_Load;
+            this.Shown += Main_Form_Shown;
+            this.FormClosing += Main_Form_FormClosing;
+            this.KeyDown += Main_Form_KeyDown;
 
             btn_Close.Click += Btn_Close_Click;
             btn_Min.Click += Btn_Min_Click;
@@ -52,45 +57,208 @@ namespace CbznSystem
             Tab1.MouseUp += Tab1_MouseUp;
             Tab1.MouseEnter += Tab1_MouseEnter;
             Tab1.MouseLeave += Tab1_MouseLeave;
-            Tab1.Click += Tab1_Click;
 
             Tab2.Paint += Tab2_Paint;
             Tab2.MouseDown += Tab2_MouseDown;
             Tab2.MouseUp += Tab2_MouseUp;
             Tab2.MouseEnter += Tab2_MouseEnter;
             Tab2.MouseLeave += Tab2_MouseLeave;
-            Tab2.Click += Tab2_Click;
 
             Tab3.Paint += Tab3_Paint;
             Tab3.MouseDown += Tab3_MouseDown;
             Tab3.MouseUp += Tab3_MouseUp;
             Tab3.MouseEnter += Tab3_MouseEnter;
             Tab3.MouseLeave += Tab3_MouseLeave;
-            Tab3.Click += Tab3_Click;
 
             Tab4.Paint += Tab4_Paint;
             Tab4.MouseDown += Tab4_MouseDown;
             Tab4.MouseUp += Tab4_MouseUp;
             Tab4.MouseEnter += Tab4_MouseEnter;
             Tab4.MouseLeave += Tab4_MouseLeave;
-            Tab4.Click += Tab4_Click;
 
             Tab5.Paint += Tab5_Paint;
             Tab5.MouseDown += Tab5_MouseDown;
             Tab5.MouseUp += Tab5_MouseUp;
             Tab5.MouseEnter += Tab5_MouseEnter;
             Tab5.MouseLeave += Tab5_MouseLeave;
-            Tab5.Click += Tab5_Click;
+
+            Tab6.Paint += Tab6_Paint;
+            Tab6.MouseDown += Tab6_MouseDown;
+            Tab6.MouseUp += Tab6_MouseUp;
+            Tab6.MouseEnter += Tab6_MouseEnter;
+            Tab6.MouseLeave += Tab6_MouseLeave;
+
+            pb_Process1.Click += Pb_Process1_Click;
+            pb_Process2.Click += Pb_Process2_Click;
+            pb_Process4.Click += Pb_Process4_Click;
+            pb_Process5.Click += Pb_Process5_Click;
+
+        }
+
+        /// <summary>
+        /// 定距卡发行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Pb_Process5_Click(object sender, EventArgs e)
+        {
+            Tab3_MouseDown(null, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
+            _isMouseDownTab3 = false;
+        }
+
+        /// <summary>
+        /// 定距卡同步(加密)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Pb_Process4_Click(object sender, EventArgs e)
+        {
+            Tab1_MouseDown(null, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
+            _isMouseDownTab1 = false;
+            Tab1_Form.GetInstance.DistanceCardPwdSet();
+        }
+
+        /// <summary>
+        /// 配置主机参数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Pb_Process2_Click(object sender, EventArgs e)
+        {
+            Tab2_MouseDown(null, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
+            _isMouseDownTab2 = false;
+        }
+
+        /// <summary>
+        /// 发行器设置(加密)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Pb_Process1_Click(object sender, EventArgs e)
+        {
+            Tab1_MouseDown(null, new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0));
+            _isMouseDownTab1 = false;
+            Tab1_Form.GetInstance.DistancePwdSet();
+        }
+
+        private void Main_Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
+            {
+                if (!Tab4.Enabled)
+                {
+                    Tab4_Form.GetInstance.AcceptButton.PerformClick();
+                }
+            }
+        }
+
+        private void Main_Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            using (Exit_Form exit = new Exit_Form())
+            {
+                if (exit.ShowDialog() != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            if (!Tab4.Enabled)
+            {
+                Tab4_Form.GetInstance.Close();
+            }
+        }
+
+        private void Main_Form_Shown(object sender, EventArgs e)
+        {
+            PortHelper.LoadPort();
+            PortHelper.DataReceived += SerialPortDataReceived;
+            PortHelper.SerialPortConnection += PortHelper_SerialPortConnection;
+            PortHelper.ConnectionChange += PortHelper_ConnectionChange;
+        }
+
+        private void PortHelper_ConnectionChange(bool flag)
+        {
+            this.BeginInvoke(new EventHandler(delegate
+            {
+                //显示端口断开或连接提示
+                PortConnectionMessage_Form portConnectionMessage = PortConnectionMessage_Form.GetInstance;
+                portConnectionMessage.Location = new Point((this.Width - portConnectionMessage.Width) / 2, this.Height - portConnectionMessage.Height);
+                portConnectionMessage.Show();
+                portConnectionMessage.ShowMessage(flag);
+            }));
+        }
+
+        private void PortHelper_SerialPortConnection(string portname)
+        {
+            if (PortHelper.IsConnection) return;
+            PortHelper.sp.PortName = portname;
+            try
+            {
+                PortHelper.sp.Open();
+                byte[] by = PortAgreement.GetDistanceEncryption(Dal_DevicePwd.DistanceSystemPassword.Pwd);
+                PortHelper.sp.Write(by);
+                by = null;
+                Thread.Sleep(550);
+                if (PortHelper.IsConnection)
+                {
+                    return;
+                }
+                PortHelper.sp.Close();
+                Thread.Sleep(10);
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void SerialPortDataReceived(ParsingParameter param)
+        {
+            if (PortHelper.IsConnection) return;
+            if (param.FunctionAddress == 65)
+            {
+                DistanceParameter distanceparam = DataParsing.DistanceParsingContent(param.DataContent);
+                if (distanceparam.Command == 160)
+                {
+                    PortHelper.IsConnection = true;
+                }
+            }
+        }
+
+        private void Tab6_MouseLeave(object sender, EventArgs e)
+        {
+            _isMouseEnterTab6 = false;
+            _isMouseDownTab6 = false;
+        }
+
+        private void Tab6_MouseEnter(object sender, EventArgs e)
+        {
+            _isMouseEnterTab6 = true;
+        }
+
+        private void Tab6_MouseUp(object sender, MouseEventArgs e)
+        {
+            _isMouseDownTab6 = false;
+        }
+
+        private void Tab6_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left) return;
+            _isMouseDownTab6 = true;
+
+            TabBtnEnalbed(Tab6);
+
+            ShowTabForm(Tab6_Form.GetInstance);
+        }
+
+        private void Tab6_Paint(object sender, PaintEventArgs e)
+        {
+            TabBtnPaint(sender, e, _isMouseEnterTab6, _isMouseDownTab6);
         }
 
         private void Pb_Logo_Click(object sender, EventArgs e)
         {
             Process.Start("http://www.c-b-z-n.com");
-        }
-
-        private void Tab5_Click(object sender, EventArgs e)
-        {
-            TabBtnEnalbed(Tab5);
         }
 
         private void Tab5_MouseLeave(object sender, EventArgs e)
@@ -111,17 +279,16 @@ namespace CbznSystem
 
         private void Tab5_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             _isMouseDownTab5 = true;
+
+            TabBtnEnalbed(Tab5);
+            ShowTabForm(Tab5_Form.GetInstance);
         }
 
         private void Tab5_Paint(object sender, PaintEventArgs e)
         {
             TabBtnPaint(sender, e, _isMouseEnterTab5, _isMouseDownTab5);
-        }
-
-        private void Tab4_Click(object sender, EventArgs e)
-        {
-            TabBtnEnalbed(Tab4);
         }
 
         private void Tab4_MouseLeave(object sender, EventArgs e)
@@ -142,17 +309,29 @@ namespace CbznSystem
 
         private void Tab4_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
+
+            if (!Dal_ManageRights.ManageRights.SetChargeManagement)
+            {
+                MessageBox.Show("当前用户无权限使用此功能。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             _isMouseDownTab4 = true;
+
+            TabBtnEnalbed(Tab4);
+
+            if (Tab4_Form.GetInstance.p_SetBox != null)
+            {
+                Tab4_Form.GetInstance.DisplaySet();
+            }
+
+            ShowTabForm(Tab4_Form.GetInstance);
         }
 
         private void Tab4_Paint(object sender, PaintEventArgs e)
         {
             TabBtnPaint(sender, e, _isMouseEnterTab4, _isMouseDownTab4);
-        }
-
-        private void Tab3_Click(object sender, EventArgs e)
-        {
-            TabBtnEnalbed(Tab3);
         }
 
         private void Tab3_MouseLeave(object sender, EventArgs e)
@@ -173,7 +352,11 @@ namespace CbznSystem
 
         private void Tab3_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             _isMouseDownTab3 = true;
+
+            TabBtnEnalbed(Tab3);
+            ShowTabForm(Tab3_Form.GetInstance);
         }
 
         private void Tab3_Paint(object sender, PaintEventArgs e)
@@ -199,7 +382,11 @@ namespace CbznSystem
 
         private void Tab2_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             _isMouseDownTab2 = true;
+
+            TabBtnEnalbed(Tab2);
+            ShowTabForm(Tab2_Form.GetInstance);
         }
 
         private void Tab2_Paint(object sender, PaintEventArgs e)
@@ -232,15 +419,16 @@ namespace CbznSystem
             }
         }
 
-        private void Tab2_Click(object sender, EventArgs e)
+        private void ShowTabForm(Form tab)
         {
-            TabBtnEnalbed(Tab2);
-        }
-
-        private void Tab1_Click(object sender, EventArgs e)
-        {
-            TabBtnEnalbed(Tab1);
-
+            WinApi.SetParent(tab.Handle, p_Box.Handle);
+            if (tab.WindowState != FormWindowState.Maximized)
+            {
+                //tab.WindowState = FormWindowState.Maximized;
+                tab.Location = new Point(0, 0);
+                tab.Size = new Size(p_Box.Width, p_Box.Height);
+                tab.Show();
+            }
         }
 
         private void TabBtnEnalbed(Button btn)
@@ -250,14 +438,28 @@ namespace CbznSystem
             Tab3.Enabled = btn != Tab3;
             Tab4.Enabled = btn != Tab4;
             Tab5.Enabled = btn != Tab5;
+            Tab6.Enabled = btn != Tab6;
             p_Top.Invalidate(false);
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
-
-
-
+            CbDevicePwd mDistanceSystemPwd = null;
+            try
+            {
+                mDistanceSystemPwd = Dbhelper.Db.FirstDefault<CbDevicePwd>();
+            }
+            finally
+            {
+                if (mDistanceSystemPwd == null)
+                {
+                    mDistanceSystemPwd = new CbDevicePwd()
+                    {
+                        Pwd = "766554"
+                    };
+                }
+            }
+            Dal_DevicePwd.DistanceSystemPassword = mDistanceSystemPwd;
         }
 
         private void Tab1_MouseEnter(object sender, EventArgs e)
@@ -273,7 +475,11 @@ namespace CbznSystem
 
         private void Tab1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             _isMouseDownTab1 = true;
+
+            TabBtnEnalbed(Tab1);
+            ShowTabForm(Tab1_Form.GetInstance);
         }
 
         private void Tab1_MouseUp(object sender, MouseEventArgs e)
@@ -337,6 +543,19 @@ namespace CbznSystem
         private void Btn_Close_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// 解决窗体切换而产生的控件闪烁问题
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
 
     }
