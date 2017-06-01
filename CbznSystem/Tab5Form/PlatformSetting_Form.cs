@@ -215,6 +215,7 @@ namespace CbznSystem
 
         private void Btn_SerialPortConnection_Click(object sender, EventArgs e)
         {
+            Tab4_Form.GetInstance.IsReadIcCard = false;
             if (PortHelper.sp.IsOpen)
             {
                 try

@@ -1017,6 +1017,8 @@ namespace CbznSystem
         {
             try
             {
+                //清空列表
+                dgv_ViceCardList.Rows.Clear();
                 if (_mCardInfo.ID > 0)
                 {
                     _mViceCard = Dbhelper.Db.ToList<CbAssociateCard>(" and CardId=" + _mCardInfo.ID + " ");

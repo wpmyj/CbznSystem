@@ -57,7 +57,7 @@ namespace CbznSystem
             if (!File.Exists(XmlHelper.FilePath))
             {
                 XmlHelper.Create();
-                Dal_SysSettings.SystemSettings = new CbSysSettings() { Version = Application.ProductVersion };
+                Dal_SysSettings.SystemSettings = new CbSysSettings();
                 XmlHelper.Add<CbSysSettings>(Dal_SysSettings.SystemSettings);
             }
             else

@@ -319,7 +319,7 @@ namespace CbznSystem
         {
             btn_Enter.Enabled = Dal_ManageRights.ManageRights.ICEncryptionICDeviceEncryption;
 
-            l_Description.Text = " 口令即密码，是为了把“临时车IC卡”的相关设备之间的空间通讯设置密码，以保证使用安全和防串卡，临时车IC卡与读写顺口令一致方可进行相关的读写操作。\n\n 此密码在使用过程中非常重要，所有初次使用一定要设置好密码，并且保存好。 ";
+            l_Description.Text = " 口令即密码，是为了把“临时车IC卡”的相关设备之间的空间通讯设置密码，以保证使用安全和防串卡，临时车IC卡与读写器口令一致方可进行相关的读写操作。\n\n 此密码在使用过程中非常重要，所有初次使用一定要设置好密码，并且保存好。 ";
             //初始化端口接收事件
             PortHelper.DataReceived += SerialPortDataReceived;
 

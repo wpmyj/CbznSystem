@@ -61,6 +61,7 @@
             this.cb_ChargeMode = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_Enter = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ud_SixMoney)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ud_SixCharge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ud_FiveMoney)).BeginInit();
@@ -540,11 +541,24 @@
             this.btn_Enter.Text = "保 存";
             this.btn_Enter.UseVisualStyleBackColor = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(30, 429);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(337, 140);
+            this.label1.TabIndex = 80;
+            this.label1.Text = "提示：\r\n\r\n     谨慎填写内容，如果有误可能导致金额计算失误。\r\n\r\n     不需要的内容使用”0“填写。\r\n\r\n     时间”分钟“为单位，小时*60" +
+    "分钟。";
+            // 
             // ChargeStandard_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 477);
+            this.ClientSize = new System.Drawing.Size(686, 523);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Enter);
             this.Controls.Add(this.ud_SixMoney);
             this.Controls.Add(this.l_SixMoneyTitle);
@@ -635,5 +649,6 @@
         private System.Windows.Forms.ComboBox cb_ChargeMode;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_Enter;
+        private System.Windows.Forms.Label label1;
     }
 }

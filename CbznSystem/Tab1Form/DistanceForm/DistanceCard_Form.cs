@@ -224,7 +224,7 @@ namespace CbznSystem
         /// <param name="e"></param>
         private void DistanceCardForm_Load(object sender, EventArgs e)
         {
-            l_Description.Text = " 只有将“5 米定距卡”的口令设置成与系统口令一致才能与系统的定距读写器进行通讯和正常使用。\n\n 将“5 米定距卡”放到多功能操作平台上，再单击“系统口令加载到定距卡”按钮。 ";
+            l_Description.Text = " 只有将“5 米定距卡”的口令设置成与系统口令一致才能与系统的定距读写器进行通讯和正常使用。\n\n 将“5 米定距卡”放到多功能操作平台上，输入定距卡的“旧密码”，再单击“确认”按钮。 ";
 
             btn_Enter.Enabled = Dal_ManageRights.ManageRights.DevicEncryptionCardEncryption ? PortHelper.IsConnection : false;
             //初始化端口接收事件

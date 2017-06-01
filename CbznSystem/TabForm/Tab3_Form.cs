@@ -33,10 +33,6 @@ namespace CbznSystem
         /// </summary>
         private int _CurrentPage;
         /// <summary>
-        /// 是否挂失操作
-        /// </summary>
-        private bool _isLoss;
-        /// <summary>
         /// 挂失集合
         /// </summary>
         private Dictionary<CbCardInfo, int> _LossList;

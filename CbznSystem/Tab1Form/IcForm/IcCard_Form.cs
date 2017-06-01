@@ -183,7 +183,7 @@ namespace CbznSystem
         /// <param name="e"></param>
         private void IcCardForm_Load(object sender, EventArgs e)
         {
-            l_Description.Text = " “IC 设备”与“IC 卡”密码相同时方可修改 “IC 卡”密码为新密码。\n\n 将“IC 卡”放到多功能操作平台上，再单击“将临时车IC卡口令加载”按钮。 ";
+            l_Description.Text = " “IC 设备”与“IC 卡”密码相同时方可修改 “IC 卡”密码为新密码。\n\n 将“IC 卡”放到多功能操作平台上，输入 IC 卡的旧密码，再单击“确认”按钮。 ";
 
             btn_Enter.Enabled = Dal_ManageRights.ManageRights.ICEncryptionICCardEncryption ? PortHelper.IsConnection : false;
             //初始化端口接收

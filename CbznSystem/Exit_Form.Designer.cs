@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Exit_Form));
             this.tb_Pwd = new System.Windows.Forms.TextBox();
             this.l_Title = new System.Windows.Forms.Label();
             this.btn_Enter = new System.Windows.Forms.Button();
@@ -82,6 +83,7 @@
             this.Controls.Add(this.btn_Enter);
             this.Controls.Add(this.l_Title);
             this.Controls.Add(this.tb_Pwd);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimizeBox = false;
             this.Name = "Exit_Form";
